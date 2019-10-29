@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+table {
+  position: relative;
+  width: 100%;
+  background-color: white;
+  border: 2px solid #888888;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.container {
+  position: relative;
+  background-color: white;
+  border: 2px solid #ccc;
+  padding: 10px;
+  border-radius: 8px;
+  margin: 20px;
+}
+
+.image {
+  opacity: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: .5s ease;
+  backface-visibility: hidden;
+}
+
+.middle {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.top-corner {
+  transition: .5s ease;
+  position: absolute;
+  top: 2%;
+  left: 5%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.contsainer:hover .image {
+  opacity: 0.3;
+}
+
+.contsainer:hover .middle {
+  opacity: 1;
+}
+
+.text {
+  background-color: #2fcb53;
+  color: white;
+  font-size: 18px;
+  padding: 16px 32px;
+  white-space:nowrap;
+}
+
+.in-cart {
+  background-color: red;
+  color: white;
+  font-size: 16px;
+  height: 100px;
+  width:100px;
+  line-height: 100px;
+  -moz-border-radius: 50px;
+  border-radius: 50px; 
+}
+
+#tag {
+  opacity:0;
+}
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
+span {
+  color:black;
+}
+</style>
+<script type="text/javascript">
+  $(document).on('ready',function(){
+
+    $(".text").click(function(){
+        stamp = this.parentNode.parentNode.querySelector('#tag');
+         stamp.style.opacity = 1 - stamp.style.opacity;  
+          if (this.innerHTML == 'Add To Cart') {
+              this.innerHTML = 'Remove From Cart'
+           } else {
+              this.innerHTML = 'Add To Cart'
+          }
+      });
+
+    // Sample data that we would normally receive from a GET request
+    var flowers = {
+      'blue' : {
+        'src' : '/assets/blue-flower.png',
+        'name' : 'Blue Flower',
+        'price' : '$80.00',
+        'stars' : 4,
+      },
+      'orange' : {
+        'src' : '/assets/orange-flower.png',
+        'name' : 'Orange Flower',
+        'price' : '$17.60',
+        'stars' : 3,
+      },
+      'pink' : {
+        'src' : '/assets/pink-flower.png',
+        'name' : 'Pink Flower',
+        'price' : '$40.00',
+        'stars' : 5,
+      }
+    }
+
+    for (i = 1; i < 4; i++) {
+      document.getElementById('img_' + i).src = flowers[Object.keys(flowers)[i-1]]['src'];
+      document.getElementById('name_' + i).innerHTML = flowers[Object.keys(flowers)[i-1]]['name'];
+      document.getElementById('price_' + i).innerHTML = flowers[Object.keys(flowers)[i-1]]['price'];
+      var stars = flowers[Object.keys(flowers)[i-1]]['stars'];
+      displayStars(stars, i);
+    }
+
+    function displayStars(stars, n) {
+      for (j = 1; j < 6; j++) {
+        var img = new Image();
+        img.src = "/assets/star.svg";
+        if (j > stars) {
+          img.style.opacity = 0.5;
+        }
+        document.getElementById('stars_' + n).appendChild(img);
+      }
+    }
+
+  });
+</script>
+</head>
+<body>
+<table id="flower-table">
+  <tr>
+    <td>
+      <div id="cell" class="container">
+        <div class="top-corner" id="tag">
+          <div class="in-cart">In Cart</div>
+        </div>
+        <img id="img_1" alt="blue-flower" class="image" style="width:100%">
+        <div class="middle">
+          <button class="text add-to-cart">Add To Cart</button>
+        </div>
+        <hr/>
+        <div>
+          <span id="name_1" style="font-weight:bold;"></span><br/>
+          <span id="price_1"></span><br/>
+          <span id="stars_1"></span>
+        </div>
+      </div>
+    </td>
+    <td>
+      <div id="cell" class="container">
+        <div class="top-corner" id="tag">
+          <div class="in-cart">In Cart</div>
+        </div>
+        <img id="img_2" alt="orange-flower" class="image" style="width:100%">
+        <div class="middle">
+          <button class="text add-to-cart" id="cart">Add To Cart</button>
+        </div>
+        <hr/>
+        <div>
+          <span id="name_2" style="font-weight:bold;"></span><br/>
+          <span id="price_2"></span><br/>
+          <span id="stars_2">
+          </span>
+        </div>
+      </div>
+    </td>
+    <td>
+      <div id="cell" class="container">
+        <div class="top-corner" id="tag">
+          <div class="in-cart">In Cart</div>
+        </div>
+        <img id="img_3" alt="pink-flower" class="image" style="width:100%">
+        <div class="middle">
+          <button class="text add-to-cart" id="cart">Add To Cart</button>
+        </div>
+        <hr/>
+        <div>
+          <span id="name_3" style="font-weight:bold;"></span><br/>
+          <span id="price_3"></span><br/>
+          <span id="stars_3"></span>
+        </div>
+      </div>
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>
+</html>
